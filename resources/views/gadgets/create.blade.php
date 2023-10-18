@@ -3,23 +3,29 @@
 @section('content')
     <div class="container">
         <h1>Add Client</h1>
-        <form action="{{ route('clients.store') }}" method="POST">
+        <form action="{{ route('gadgets.store') }}" method="POST" class="row">
             @csrf
-            <div class="mb-3">
+            <div class="mb-3 col-md-6">
+                <label for="name" class="form-label">Client</label>
+                <select class="form-select" name="client_id">
+                    @foreach($clients as $client)
+                        <option value="{{ $client->id}}">{{$client->name}}</option>
+                        @endforeach
+                </select>
+
+            </div>
+            <div class="mb-3 col-md-6">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+            <div class="mb-3 col-md-6">
+                <label for="email" class="form-label">Serial Number</label>
+                <input  class="form-control" id="email" name="serial_number" required>
             </div>
-            <div class="mb-3">
-                <label for="phone" class="form-label">Phone</label>
-                <input type="text" class="form-control" id="phone" name="phone" required>
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+
+            <div class="mb-3 col-md-6">
+                <label for="address" class="form-label">Description</label>
+                <textarea class="form-control" id="address" name="description" rows="3" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>

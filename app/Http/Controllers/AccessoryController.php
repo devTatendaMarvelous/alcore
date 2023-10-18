@@ -43,9 +43,7 @@ class AccessoryController extends Controller
         return view('accessories.edit', compact('accessory', 'gadgets'));
     }
 
-    public function update(Request $I apologize, but it seems that my previous response was cut off. Here's the continuation of the `AccessoryController`:
 
-```php
     public function update(Request $request, Accessory $accessory)
     {
         $request->validate([
@@ -62,7 +60,6 @@ class AccessoryController extends Controller
     public function destroy(Accessory $accessory)
     {
         $accessory->delete();
-
         return redirect()->route('accessories.index')->with('success', 'Accessory deleted successfully.');
     }
 }

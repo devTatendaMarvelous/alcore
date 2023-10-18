@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1>Clients</h1>
-        <a class="btn btn-primary mb-3" href="{{ route('clients.create') }}">Add Client</a>
+        <h1>gadgets</h1>
+        <a class="btn btn-primary mb-3" href="{{ route('gadgets.create') }}">Add gadget</a>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -12,27 +12,29 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
+                    <th>Client</th>
+                    <th>Gadget</th>
+                    <th>Serial Number</th>
+                    <th>Description</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($clients as $client)
+                @foreach ($gadgets as $gadget)
                     <tr>
-                        <td>{{ $client->name }}</td>
-                        <td>{{ $client->email }}</td>
-                        <td>{{ $client->phone }}</td>
-                        <td>{{ $client->address }}</td>
+                        <td>{{ $gadget->client->name }}</td>
+                        <td>{{ $gadget->name }}</td>
+                        <td>{{ $gadget->serial_number }}</td>
+                        <td>{{ $gadget->description }}</td>
+                        <td>{{ $gadget->status }}</td>
                         <td>
-                            <a href="{{ route('clients.show', $client) }}" class="btn btn-info">View</a>
-                            <a href="{{ route('clients.edit', $client) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('clients.destroy', $client) }}" method="POST" class="d-inline">
+
+                            <a href="{{ route('gadgets.edit', $gadget) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('gadgets.destroy', $gadget) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this client?')">Delete</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this gadget?')">Delete</button>
                             </form>
                         </td>
                     </tr>

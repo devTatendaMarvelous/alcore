@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->string('name');
+            $table->string('serial_number')->unique();
             $table->text('description');
-            $table->enum('status', ['pending', 'testing', 'waiting_approval', 'completed', 'collected'])->default('pending');
+            $table->enum('status', ['pending', 'in_progress', 'testing', 'waiting_approval', 'completed', 'collected'])->default('pending');
             $table->timestamps();
         });
     }

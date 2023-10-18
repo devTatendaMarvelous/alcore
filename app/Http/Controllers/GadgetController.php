@@ -11,7 +11,8 @@ class GadgetController extends Controller
     public function index()
     {
         $gadgets = Gadget::all();
-        return view('gadgets.index', compact('gadgets'));
+        $clients=Client::all();
+        return view('gadgets.index', compact(['gadgets','clients']));
     }
 
     public function create()
@@ -22,16 +23,21 @@ class GadgetController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'client_id' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'status' => 'required',
-        ]);
+        try {
 
-        Gadget::create($request->all());
+            $gadget=$request->validate([
+                'client_id' => 'required',
+                'name' => 'required',
+                'serial_number' => 'required|unique:gadgets',
+                'description' => 'required',
+            ]);
+            Gadget::create( $gadget);
 
-        return redirect()->route('gadgets.index')->with('success', 'Gadget created successfully.');
+            return redirect()->route('gadgets.index')->with('success', 'Gadget created successfully.');
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
     }
 
     public function show(Gadget $gadget)
@@ -47,16 +53,23 @@ class GadgetController extends Controller
 
     public function update(Request $request, Gadget $gadget)
     {
-        $request->validate([
-            'client_id' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'status' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'client_id' => 'required',
+                'name' => 'required',
+                'serial_number' => 'required',
+                'description' => 'required',
+                'status' => 'required',
+            ]);
 
-        $gadget->update($request->all());
+            $gadget->update($request->all());
 
-        return redirect()->route('gadgets.index')->with('success', 'Gadget updated successfully.');
+            return redirect()->route('gadgets.index')->with('success', 'Gadget updated successfully.');
+
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
     }
 
     public function destroy(Gadget $gadget)

@@ -27,7 +27,6 @@
                         <td>{{ $client->phone }}</td>
                         <td>{{ $client->address }}</td>
                         <td>
-                            <a href="{{ route('clients.show', $client) }}" class="btn btn-info">View</a>
                             <a href="{{ route('clients.edit', $client) }}" class="btn btn-primary">Edit</a>
                             <form action="{{ route('clients.destroy', $client) }}" method="POST" class="d-inline">
                                 @csrf

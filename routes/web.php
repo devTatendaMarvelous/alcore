@@ -14,13 +14,12 @@ use App\Http\Controllers\ClientController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 });
 
-Route::resource('clients', 'App\Http\Controllers\ClientController');
-Route::resource('gadgets', 'App\Http\Controllers\GadgetController');
-Route::resource('accessories', 'App\Http\Controllers\AccessoryController');
+Route::resource('clients', 'App\Http\Controllers\ClientController')->middleware('auth');
+Route::resource('gadgets', 'App\Http\Controllers\GadgetController')->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\GadgetController::class, 'index'])->middleware('auth')->name('home');
