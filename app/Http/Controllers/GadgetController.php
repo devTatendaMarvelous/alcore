@@ -59,7 +59,7 @@ class GadgetController extends Controller
     public function update(Request $request, Gadget $gadget)
     {
         try {
-            $gadget=$request->validate([
+            $gadgetToUppdate=$request->validate([
                 'client_id' => 'required',
                 'name' => 'required',
                 'serial_number' => 'required',
@@ -69,7 +69,7 @@ class GadgetController extends Controller
             if($request->has('photo')){
                 $gadget['photo'] =  $request->file('photo')->store('gadgetPhotos', 'public');;
             }
-            $gadget->update($gadget);
+            $gadget->update($gadgetToUppdate);
 
             return redirect()->route('gadgets.index')->with('success', 'Gadget updated successfully.');
 
