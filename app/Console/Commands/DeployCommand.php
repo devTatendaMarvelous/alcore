@@ -33,7 +33,7 @@ class DeployCommand extends Command
         $this->info(shell_exec('git stash'));
         $this->info(shell_exec('git pull'));
         $this->info('Migrating the database...');
-        $this->call('migrate:fresh');
+//        $this->call('migrate:fresh');
 //        $this->call('php artisan migrate:fresh --seed');
 //        $this->info('Generating a new application key...');
 //        $this->call('key:generate', [
