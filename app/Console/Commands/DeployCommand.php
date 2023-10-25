@@ -30,10 +30,10 @@ class DeployCommand extends Command
         $this->call('optimize:clear');
         $this->info('Bringing application down for maintenance...');
         $this->call('down');
-        $this->info('Migrating the database...');
-        $this->call('migrate:fresh');
         $this->info(shell_exec('git stash'));
         $this->info(shell_exec('git pull'));
+        $this->info('Migrating the database...');
+        $this->call('migrate:fresh');
 //        $this->call('php artisan migrate:fresh --seed');
 //        $this->info('Generating a new application key...');
 //        $this->call('key:generate', [
