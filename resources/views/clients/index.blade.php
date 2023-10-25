@@ -4,11 +4,7 @@
     <div class="container">
         <h1>Clients</h1>
         <a class="btn btn-primary mb-3" href="{{ route('clients.create') }}">Add Client</a>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+
         <table class="table">
             <thead>
                 <tr>

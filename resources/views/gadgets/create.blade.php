@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1>Add Client</h1>
-        <form action="{{ route('gadgets.store') }}" method="POST" class="row">
+        <h1>Add Gadget</h1>
+        <form action="{{ route('gadgets.store') }}" method="POST" class="row" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 col-md-6">
                 <label for="name" class="form-label">Client</label>
@@ -21,6 +21,10 @@
             <div class="mb-3 col-md-6">
                 <label for="email" class="form-label">Serial Number</label>
                 <input  class="form-control" id="email" name="serial_number" required>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="photo" class="form-label">Gadget Photo</label>
+                <input type="file" accept="image/*"  class="form-control" id="photo" name="photo" >
             </div>
 
             <div class="mb-3 col-md-6">

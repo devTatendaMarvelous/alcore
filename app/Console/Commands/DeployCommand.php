@@ -42,6 +42,7 @@ class DeployCommand extends Command
         $this->info(shell_exec('git stash apply'));
 //        $this->call('view:cache ');
 //        $this->call('config:cache ');
+        $this->call('storage:link');
         $this->info('Bringing application up...');
         $this->call('up');
 

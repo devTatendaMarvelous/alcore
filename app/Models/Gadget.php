@@ -14,6 +14,7 @@ class Gadget extends Model
         'serial_number',
         'description',
         'status',
+        'photo',
     ];
     public function client()
     {

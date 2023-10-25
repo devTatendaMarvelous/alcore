@@ -17,13 +17,19 @@
 
     <!-- Scripts -->
 
+
+
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Alcore Systems Gadget Management') }}
+                <a class="navbar-brand row" href="{{ url('/') }}">
+                    <div class="col-md-4">
+                    <img src="{{asset('logo.png')}}" width="80" >
+                    </div>
+                    <h3 class="col-md-8 text-700">Gadget Management System</h3>
+
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -82,8 +88,26 @@
         </nav>
 
         <main class="py-4">
+            <div class="d-flex align-content-center">
+                <div class="justify-content">
+
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                </div>
+            </div>
             @yield('content')
         </main>
     </div>
+
+
+
 </body>
 </html>

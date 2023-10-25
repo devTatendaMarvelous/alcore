@@ -4,14 +4,11 @@
     <div class="container">
         <h1>gadgets</h1>
         <a class="btn btn-primary mb-3" href="{{ route('gadgets.create') }}">Add gadget</a>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+
         <table class="table">
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>Client</th>
                     <th>Gadget</th>
                     <th>Serial Number</th>
@@ -23,12 +20,19 @@
             <tbody>
                 @foreach ($gadgets as $gadget)
                     <tr>
+                        <td><img src=" {{ $gadget->photo? asset('storage/'.$gadget->photo):asset('gadget.png') }}" width="50"></td>
                         <td>{{ $gadget->client->name }}</td>
                         <td>{{ $gadget->name }}</td>
                         <td>{{ $gadget->serial_number }}</td>
                         <td>{{ $gadget->description }}</td>
                         <td>{{ $gadget->status }}</td>
                         <td>
+                            @if ($gadget->is_forsale)
+                                <a href="{{ route('gadgets.remove', $gadget) }}" class="btn btn-warning">Remove Sale</a>
+                            @else
+                                <a href="{{ route('gadgets.sale', $gadget) }}" class="btn btn-success">Sale</a>
+
+                                @endif
 
                             <a href="{{ route('gadgets.edit', $gadget) }}" class="btn btn-primary">Edit</a>
                             <form action="{{ route('gadgets.destroy', $gadget) }}" method="POST" class="d-inline">

@@ -13,13 +13,19 @@ use App\Http\Controllers\ClientController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('home');
+
+
+Route::controller(App\Http\Controllers\FrontendController::class)->group( function(){
+    Route::get('/', 'index');
 });
+
+
+
 
 Route::resource('clients', 'App\Http\Controllers\ClientController')->middleware('auth');
 Route::resource('gadgets', 'App\Http\Controllers\GadgetController')->middleware('auth');
-
+Route::get('/sale/{id}', [App\Http\Controllers\GadgetController::class, 'sale'])->name('gadgets.sale');
+Route::get('/remove/{id}', [App\Http\Controllers\GadgetController::class, 'remove'])->name('gadgets.remove');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\GadgetController::class, 'index'])->middleware('auth')->name('home');

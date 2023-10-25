@@ -11,26 +11,31 @@ class GadgetController extends Controller
     public function index()
     {
         $gadgets = Gadget::all();
-        $clients=Client::all();
-        return view('gadgets.index', compact(['gadgets','clients']));
+        return view('gadgets.index', compact(['gadgets']));
     }
 
     public function create()
     {
         $clients = Client::all();
-        return view('gadgets.create', compact('clients'));
+        if ($clients->count() > 0) {
+            return view('gadgets.create', compact('clients'));
+        }else{
+            return back()->with('error', 'Gadget cannot be created without at least one client. ');
+        }
     }
 
     public function store(Request $request)
     {
         try {
-
             $gadget=$request->validate([
                 'client_id' => 'required',
                 'name' => 'required',
                 'serial_number' => 'required|unique:gadgets',
                 'description' => 'required',
             ]);
+            if($request->has('photo')){
+                $gadget['photo'] =  $request->file('photo')->store('gadgetPhotos', 'public');;
+            }
             Gadget::create( $gadget);
 
             return redirect()->route('gadgets.index')->with('success', 'Gadget created successfully.');
@@ -65,6 +70,32 @@ class GadgetController extends Controller
             $gadget->update($request->all());
 
             return redirect()->route('gadgets.index')->with('success', 'Gadget updated successfully.');
+
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+    }
+
+    public function sale($id)
+    {
+        try {
+            $gadget=Gadget::find($id);
+            $gadget->is_forsale =1;
+            $gadget->save();
+            return redirect()->route('gadgets.index')->with('success', 'Gadget now on sale.');
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function remove($id)
+    {
+        try {
+
+            $gadget=Gadget::find($id);
+            $gadget->is_forsale =0;
+            $gadget->save();
+            return redirect()->route('gadgets.index')->with('success', 'Gadget now removed from sale.');
 
         }catch (\Exception $e) {
             return $e->getMessage();
