@@ -59,15 +59,17 @@ class GadgetController extends Controller
     public function update(Request $request, Gadget $gadget)
     {
         try {
-            $request->validate([
+            $gadget=$request->validate([
                 'client_id' => 'required',
                 'name' => 'required',
                 'serial_number' => 'required',
                 'description' => 'required',
                 'status' => 'required',
             ]);
-
-            $gadget->update($request->all());
+            if($request->has('photo')){
+                $gadget['photo'] =  $request->file('photo')->store('gadgetPhotos', 'public');;
+            }
+            $gadget->update($gadget);
 
             return redirect()->route('gadgets.index')->with('success', 'Gadget updated successfully.');
 
