@@ -42,15 +42,18 @@ class ClientController extends Controller
         return view('clients.edit', compact('client'));
     }
 
-    public function update(Request $request, Client $client)
+    public function update(Request $request, $id)
     {
+
+
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:clients,email,' . $client->id,
+            'email' => 'required|email',
             'phone' => 'required',
             'address' => 'required',
         ]);
 
+        $client=Client::find($id);
         $client->update($request->all());
 
         return redirect()->route('clients.index')->with('success', 'Client updated successfully.');
